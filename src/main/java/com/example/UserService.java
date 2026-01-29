@@ -1,25 +1,22 @@
 package com.example;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 public class UserService {
 
     public void printAdultUsers(List<User> users) {
 
-        if (users == null || users.size() == 0) {
+        if (users == null || users.isEmpty()) {
             System.out.println("Lista vazia");
             return;
         }
 
-        for (User user : users) {
-            Optional<Integer> age = Optional.ofNullable(user.getAge());
-
-            if (age.isPresent() && age.get() >= 18) {
-                System.out.println(
-                        user.getName().toUpperCase() + " é adulto"
-                );
-            }
-        }
+        users.stream()
+             .filter(Objects::nonNull)
+             .filter(user -> user.age() != null && user.age() >= 18)
+             .forEach(user -> System.out.println(
+                     user.name().toUpperCase() + " é adulto"
+             ));
     }
 }

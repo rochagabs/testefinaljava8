@@ -6,9 +6,9 @@ import java.util.List;
 public class LegacyApplication {
 
     public static void main(String[] args) {
-        UserService service = new UserService();
+        var service = new UserService();
 
-        List<User> users = Arrays.asList(
+        var users = Arrays.asList(
                 new User("Ana", 25),
                 new User("Bruno", 17),
                 new User("Carlos", 30)
