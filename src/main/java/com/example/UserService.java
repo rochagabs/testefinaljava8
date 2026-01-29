@@ -6,20 +6,11 @@ import java.util.Optional;
 public class UserService {
 
     public void printAdultUsers(List<User> users) {
-
-        if (users == null || users.size() == 0) {
-            System.out.println("Lista vazia");
-            return;
-        }
-
-        for (User user : users) {
-            Optional<Integer> age = Optional.ofNullable(user.getAge());
-
-            if (age.isPresent() && age.get() >= 18) {
-                System.out.println(
-                        user.getName().toUpperCase() + " é adulto"
-                );
-            }
-        }
+        Optional.ofNullable(users)
+                .stream()
+                .flatMap(List::stream)
+                .filter(user -> user.age() != null && user.age() >= 18)
+                .map(user -> user.name().toUpperCase() + " é adulto")
+                .forEach(System.out::println);
     }
 }
